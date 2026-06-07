@@ -1,12 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# from .database import engine, Base
-# from .routers import auth_router, admin, developer
-# from .config import settings
-from database import engine, Base
-from routers import auth_router, admin, developer
-from config import settings
+try:
+    from .database import engine, Base
+    from .routers import admin, auth_router, developer
+    from .config import settings
+except ImportError:
+    from database import engine, Base
+    from routers import admin, auth_router, developer
+    from config import settings
 
 app = FastAPI(
     title="Project Management System",

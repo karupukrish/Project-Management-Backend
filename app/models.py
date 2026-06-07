@@ -5,7 +5,11 @@ from sqlalchemy import Column, String, Text, DateTime, ForeignKey, Enum as SAEnu
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from .database import Base
+try:
+    from .database import Base
+except ImportError:
+    from database import Base
+
 import enum
 
 

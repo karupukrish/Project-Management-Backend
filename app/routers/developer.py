@@ -2,10 +2,16 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
-from ..database import get_db
-from ..models import Task
-from ..schemas import TaskStatusUpdate, TaskDetailResponse
-from ..dependencies import get_current_developer
+try:
+    from ..database import get_db
+    from ..models import Task
+    from ..schemas import TaskStatusUpdate, TaskDetailResponse
+    from ..dependencies import get_current_developer
+except ImportError:
+    from database import get_db
+    from models import Task
+    from schemas import TaskStatusUpdate, TaskDetailResponse
+    from dependencies import get_current_developer
 
 router = APIRouter(prefix="/api/developer", tags=["Developer"], dependencies=[Depends(get_current_developer)])
 

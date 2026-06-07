@@ -2,15 +2,26 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
-from ..database import get_db
-from ..models import Project, Developer, Task
-from ..schemas import (
-    ProjectCreate, ProjectUpdate, ProjectResponse,
-    DeveloperCreate, DeveloperUpdate, DeveloperResponse,
-    TaskCreate, TaskUpdate, TaskResponse, TaskDetailResponse,
-)
-from ..auth import hash_password
-from ..dependencies import get_current_admin
+try:
+    from ..database import get_db
+    from ..models import Project, Developer, Task
+    from ..schemas import (
+        ProjectCreate, ProjectUpdate, ProjectResponse,
+        DeveloperCreate, DeveloperUpdate, DeveloperResponse,
+        TaskCreate, TaskUpdate, TaskResponse, TaskDetailResponse,
+    )
+    from ..auth import hash_password
+    from ..dependencies import get_current_admin
+except ImportError:
+    from database import get_db
+    from models import Project, Developer, Task
+    from schemas import (
+        ProjectCreate, ProjectUpdate, ProjectResponse,
+        DeveloperCreate, DeveloperUpdate, DeveloperResponse,
+        TaskCreate, TaskUpdate, TaskResponse, TaskDetailResponse,
+    )
+    from auth import hash_password
+    from dependencies import get_current_admin
 
 router = APIRouter(prefix="/api/admin", tags=["Admin"], dependencies=[Depends(get_current_admin)])
 

@@ -2,7 +2,11 @@ import uuid
 from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
-from .models import TaskStatus, ProjectStatus
+
+try:
+    from .models import TaskStatus, ProjectStatus
+except ImportError:
+    from models import TaskStatus, ProjectStatus
 
 
 # --- Auth ---
